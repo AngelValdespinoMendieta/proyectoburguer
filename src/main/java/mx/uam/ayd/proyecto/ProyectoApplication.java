@@ -8,10 +8,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import mx.uam.ayd.proyecto.presentacion.recibirpedidos.ControlRecibirPedidos;
 
-import mx.uam.ayd.proyecto.datos.GrupoRepository;
-import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
-import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
 /**
  * 
@@ -65,36 +63,23 @@ public class ProyectoApplication {
 		}
 	}
 
-	@Autowired
-	private ControlPrincipal controlPrincipal;
 	
-	@Autowired
-	private GrupoRepository grupoRepository;
 	
 	/**
 	 * Metodo que arranca la aplicacion
 	 * inicializa la bd y arranca el controlador
 	 */
+	
+	@Autowired
+	private ControlRecibirPedidos controlRecibirPedidos;
+	
 	public void inicia() {
-		inicializaBD();
 		
 		// Make sure controllers are created on JavaFX thread
 		Platform.runLater(() -> {
-			controlPrincipal.inicia();
+			controlRecibirPedidos.inicia();
 		});
 	}
 	
-	/**
-	 * Inicializa la BD con datos
-	 */
-	public void inicializaBD() {
-		// Vamos a crear los dos grupos de usuarios
-		Grupo grupoAdmin = new Grupo();
-		grupoAdmin.setNombre("Administradores");
-		grupoRepository.save(grupoAdmin);
-		
-		Grupo grupoOps = new Grupo();
-		grupoOps.setNombre("Operadores");
-		grupoRepository.save(grupoOps);
-	}
+	
 }
